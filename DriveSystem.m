@@ -1,9 +1,8 @@
 classdef DriveSystem < handle
     
     properties (GetAccess = public, SetAccess = immutable)
-        % Belt Efficiency assumes both flat and V belts (V belts prefered)
-        beltEfficiency
-        gearEfficiency
+        % Efficiency of the system (either flat belt, V belt, or gear
+        efficiency
     end
     
     enumeration
@@ -16,10 +15,9 @@ classdef DriveSystem < handle
     end
     
     methods
-        function obj = DriveSystem()
-            % Refering to my 1001 notes for usual efficiencies 
-            obj.beltEfficiency = 0.85;
-            obj.gearEfficiency = 0.90;
+        function obj = DriveSystem(eff)
+            % Efficiency is parameterized
+            obj.efficiency = eff;
             obj.transmissionType = direct;
             obj.transmissionRatio = 1;
         end
@@ -30,12 +28,7 @@ classdef DriveSystem < handle
         end
         
         function torque = motorTorque(obj, OutputTorque)
-            mu = 1;
-            if obj.transmissionType == belt
-                mu = obj.beltEfficiency;
-            elseif obj.transmissionType == gear
-                mu = obj.gearEfficiency ;
-            end
+            mu = obj.efficiency;
             torque = OutputTorque/(obj.transmissionRatio * mu);
         end
     end

@@ -15,11 +15,12 @@ classdef ESB < handle
     
     methods
         % Construction and setters
-        function obj = ESB(w, th, l, weight)
+        function obj = ESB(w, th, l, weight, wheelR)
             obj.Width = w;
-            obj.Thickness = h;
+            obj.Thickness = th;
             obj.Length = l;
             obj.BoardWeight = weight;
+            obj.WheelRadius = wheelR;
         end
         
         function obj = setDriveSystem(ds)
