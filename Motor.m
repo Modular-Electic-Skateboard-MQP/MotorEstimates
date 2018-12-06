@@ -72,6 +72,14 @@ classdef Motor < handle
             ylabel('Efficiency Ratio');
             xlabel('Amps')
         end
+        
+        function current = currentAtTorque(obj, torque)
+            amp = @(inTorque) (obj.StallAmp/obj.StallTorque) * inTorque;
+           
+            current = amp(torque);
+        end
+        
+        
     end
 end
 
